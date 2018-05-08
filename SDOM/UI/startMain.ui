@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>975</width>
+    <height>523</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>160</y>
+      <width>611</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>URW Bookman L</family>
+      <pointsize>72</pointsize>
+      <italic>false</italic>
+     </font>
+    </property>
+    <property name="text">
+     <string>Super Dope</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>150</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>URW Bookman L</family>
+     </font>
+    </property>
+    <property name="text">
+     <string>Welcome to</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>975</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuGo_To">
+    <property name="title">
+     <string>Go To </string>
+    </property>
+    <widget class="QMenu" name="menuOverall">
+     <property name="title">
+      <string>Overall</string>
+     </property>
+     <addaction name="actionCustomer_Relations"/>
+     <addaction name="actionInventory"/>
+     <addaction name="actionCuriosity"/>
+     <addaction name="actionEmployees"/>
+    </widget>
+    <widget class="QMenu" name="menuStep_by_Step">
+     <property name="title">
+      <string>Step by Step</string>
+     </property>
+     <addaction name="actionIntake"/>
+     <addaction name="actionBlasting"/>
+     <addaction name="actionFinishing"/>
+     <addaction name="actionYield"/>
+     <addaction name="actionPackaging"/>
+     <addaction name="actionDistolate"/>
+     <addaction name="actionPOS"/>
+    </widget>
+    <addaction name="menuOverall"/>
+    <addaction name="menuStep_by_Step"/>
+   </widget>
+   <addaction name="menuGo_To"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionCustomer_Relations">
+   <property name="text">
+    <string>Customer Relations</string>
+   </property>
+  </action>
+  <action name="actionInventory">
+   <property name="text">
+    <string>Inventory</string>
+   </property>
+  </action>
+  <action name="actionIntake">
+   <property name="text">
+    <string>Intake</string>
+   </property>
+  </action>
+  <action name="actionBlasting">
+   <property name="text">
+    <string>Blasting</string>
+   </property>
+  </action>
+  <action name="actionFinishing">
+   <property name="text">
+    <string>Finishing</string>
+   </property>
+  </action>
+  <action name="actionYield">
+   <property name="text">
+    <string>Yield</string>
+   </property>
+  </action>
+  <action name="actionPackaging">
+   <property name="text">
+    <string>Packaging</string>
+   </property>
+  </action>
+  <action name="actionDistolate">
+   <property name="text">
+    <string>Distolate</string>
+   </property>
+  </action>
+  <action name="actionPOS">
+   <property name="text">
+    <string>POS</string>
+   </property>
+  </action>
+  <action name="actionCuriosity">
+   <property name="text">
+    <string>Curiosity</string>
+   </property>
+  </action>
+  <action name="actionEmployees">
+   <property name="text">
+    <string>Employees</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
