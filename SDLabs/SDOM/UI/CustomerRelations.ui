@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>546</width>
+    <height>493</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>511</width>
+      <height>411</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>URW Gothic L</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>546</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionNew"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionView_Selected"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionEdit_Selected"/>
+    <addaction name="actionDelete_Selected"/>
+   </widget>
+   <widget class="QMenu" name="menuPages">
+    <property name="title">
+     <string>Departments</string>
+    </property>
+    <addaction name="actionIntake"/>
+    <addaction name="actionLab"/>
+    <addaction name="actionFinishing"/>
+    <addaction name="actionYield"/>
+    <addaction name="actionProduct_Management"/>
+    <addaction name="actionPackaging"/>
+    <addaction name="actionDistillate"/>
+    <addaction name="actionPOS"/>
+    <addaction name="separator"/>
+    <addaction name="actionPage_Switch_ON_OFF"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuPages"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionEdit_Selected">
+   <property name="text">
+    <string>Edit Selected</string>
+   </property>
+  </action>
+  <action name="actionView_Selected">
+   <property name="text">
+    <string>View Selected</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionDelete_Selected">
+   <property name="text">
+    <string>Delete Selected</string>
+   </property>
+  </action>
+  <action name="actionIntake">
+   <property name="text">
+    <string>Intake</string>
+   </property>
+  </action>
+  <action name="actionLab">
+   <property name="text">
+    <string>Lab</string>
+   </property>
+  </action>
+  <action name="actionFinishing">
+   <property name="text">
+    <string>Finishing</string>
+   </property>
+  </action>
+  <action name="actionYield">
+   <property name="text">
+    <string>Yield</string>
+   </property>
+  </action>
+  <action name="actionProduct_Management">
+   <property name="text">
+    <string>Product Management</string>
+   </property>
+  </action>
+  <action name="actionPackaging">
+   <property name="text">
+    <string>Packaging</string>
+   </property>
+  </action>
+  <action name="actionDistillate">
+   <property name="text">
+    <string>Distillate</string>
+   </property>
+  </action>
+  <action name="actionPOS">
+   <property name="text">
+    <string>POS</string>
+   </property>
+  </action>
+  <action name="actionPage_Switch_ON_OFF">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Page Switch ON/OFF</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
