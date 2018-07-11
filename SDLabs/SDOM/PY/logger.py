@@ -5,6 +5,8 @@ import zlib
 
 deep = []
 
+sdp.MODE = 'silent'
+
 class log:
     def __init__(self,logType):
         self.anonymousResult = True

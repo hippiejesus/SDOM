@@ -8,17 +8,19 @@ import pickle
 import zlib
 import os
 
+MODE = 'verbose'
+
 SDPstem = '../.zzz/'
 class pickleSession:
     def __init__(self,name,material):
         self.name = name
-        print("Growing Pickle...")
+        if MODE == 'verbose': print("Growing Pickle...")
         pickle_out = open(SDPstem+self.name+".pickle","wb")
         #print("Pickling: " + str(material))
         pickle.dump(material,pickle_out)
-        print("Putting Pickle in Jar...")
+        if MODE == 'verbose': print("Putting Pickle in Jar...")
         pickle_out.close()
-        print("Congrats, its out of your hands now!")
+        if MODE == 'verbose': print("Congrats, its out of your hands now!")
         
         to_compress = open(SDPstem+self.name+".pickle","rb")
         string = to_compress.read()
@@ -43,14 +45,14 @@ class snackTime:
         to_save.write(decompstring)
         to_save.close()
         
-        print("Juicing Pickle...")
+        if MODE == 'verbose': print("Juicing Pickle...")
         pickle_in = open(SDPstem+self.name+".pickle","rb")
         self.material = pickle.load(pickle_in)
         #print("Unpickling: "+str(self.material))
-        print("Closing lid...")
+        if MODE == 'verbose': print("Closing lid...")
         pickle_in.close()
         os.remove(SDPstem+self.name+".pickle")
-        print("Enjoy the snack!")
+        if MODE == 'verbose': print("Enjoy the snack!")
 
     def data(self):
         return self.material

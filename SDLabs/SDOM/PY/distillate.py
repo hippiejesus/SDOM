@@ -106,9 +106,8 @@ class DistillateWindow(QtGui.QMainWindow):
                 
         
     def endProgram(self):
-        QtCore.QCoreApplication.instance().quit()
+        app.quit()
         self.hide()
-        subprocess.call('python SDOM.pyw', shell=True)
         
     def new(self):
         options = ['Crude','Distillate']
@@ -223,7 +222,6 @@ def logClose():
     app.quit()
     #lg.write('Terminating Session...')
     #lg.close()
-    subprocess.call('python SDOM.pyw', shell=True)
     
 import atexit
 atexit.register(logClose)

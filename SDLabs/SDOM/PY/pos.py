@@ -19,7 +19,7 @@ class POSMainWindow(QtGui.QMainWindow):
         uic.loadUi(cl.UIstem+'posMain.ui', self)
         
         self.kinds ={'Crumble':self.listCrum,
-                     'Crystals':self.listCry,
+                     'Crystal':self.listCry,
                      'Distillate':self.listDisto,
                      'Resin':self.listLive,
                      'RSO':self.listRsopt}
@@ -44,16 +44,6 @@ class POSMainWindow(QtGui.QMainWindow):
                      
         self.updateLists()
         
-        self.actionCustomer_Relations.triggered.connect(lambda: self.pageOpen('customerRelations.py'))
-        self.actionIntake.triggered.connect(lambda: self.pageOpen('intake.py'))
-        self.actionLab.triggered.connect(lambda: self.pageOpen('lab.py'))
-        self.actionFinishing.triggered.connect(lambda: self.pageOpen('finishing.py'))
-        self.actionYield.triggered.connect(lambda: self.pageOpen('yieldW.py'))
-        self.actionProduct_Management_2.triggered.connect(lambda: self.pageOpen('productManagement.py'))
-        self.actionPackaging.triggered.connect(lambda: self.pageOpen('packaging.py'))
-        self.actionDistillate.triggered.connect(lambda: self.pageOpen('distillate.py'))
-        #self.actionPOS.triggered.connect(lambda: self.pageOpen('pos.py'))
-        
         self.center()
         
     def center(self):
@@ -64,7 +54,7 @@ class POSMainWindow(QtGui.QMainWindow):
         self.move(frameGm.topLeft())
         
     def exitApp(self):
-        QtCore.QCoreApplication.instance().quit()
+        app.quit()
         self.hide()
         
     def pageOpen(self,page):
@@ -108,11 +98,12 @@ class POSMainWindow(QtGui.QMainWindow):
         
         productsToSell = list()
         for kind in self.kinds.values():
-            current = kind.currentItem()
-            print kind.currentItem()
+            current = kind.selectedItems()
+            print kind.selectedItems()
             if current != None:
-                product = products[str(current.text())]
-                productsToSell.append(product)
+                for item in current:
+                    product = products[str(item.text())]
+                    productsToSell.append(product)
         print product.ID
         soldWindow = POSSoldToWindow()
         windows.append(soldWindow)
@@ -186,8 +177,13 @@ class POSPaymentReviewWindow(QtGui.QDialog):
         for payment in cl.inv.listAllReciepts:
             self.listPayments.addItem(str(payment.transaction.sendingEntity.name)+' : $'+str(payment.transaction.amountPayed)+'/'+str(payment.transaction.amountPayed+payment.transaction.amountToBePayed))
             
+        self.listPayments.itemDoubleClicked.connect(self.doubleEvent)
+            
         windows.append(self)
         self.show()
+        
+    def doubleEvent(self):
+        pass
 
 class POSPricingWindow(QtGui.QDialog):
     def __init__(self):
@@ -198,6 +194,8 @@ class POSPricingWindow(QtGui.QDialog):
         self.currentProduct = cl.container()
         self.priceWindows = list()
         self.productsToSell = list()
+        
+        self.currentTrans = None
         
         self.unitButtons = [self.pushAllUnit, self.pushPartialUnit]
         
@@ -218,8 +216,10 @@ class POSPricingWindow(QtGui.QDialog):
         trans = cl.transaction()
         trans.recievingEntity = 'Super Dope'
         trans.sendingEntity = self.currentCompany
-        trans.valuedEntity = self.currentProduct
         trans.amountToBePaid = totalPrice
+        
+        if self.currentTrans != None:
+            trans = self.currentTrans
         
         sold = cl.soldProduct()
         sold.ID = self.currentProduct.ID
@@ -232,12 +232,15 @@ class POSPricingWindow(QtGui.QDialog):
         sold.paymentStatus = trans
         
         cl.inv.listAllSoldProduct.append(sold)
-        cl.inv.listAllTransactions.append(trans)
+        #if self.currentTrans == None:
+        #    cl.inv.listAllTransactions.append(trans)
         cl.inv.listAllSoldProductArchive.append(sold)
-        cl.inv.listAllTransactionsArchive.append(trans)
+        #if self.currentTrans == None:
+        #    cl.inv.listAllTransactionsArchive.append(trans)
         
         posReview.soldProducts.append(sold)
-        posReview.transactions.append(trans)
+        if self.currentTrans == None:
+            posReview.transactions.append(trans)
         
         print self.priceWindows
         print self.productsToSell
@@ -246,6 +249,7 @@ class POSPricingWindow(QtGui.QDialog):
             posReview.review()
             self.hide()
         else:
+            self.currentTrans = trans
             self.hide()
             window1 = self.priceWindows[0]
             window1.setCompany(self.currentCompany,self.productsToSell[0])
@@ -288,7 +292,7 @@ class POSReviewWindow(QtGui.QDialog):
     def ok(self):
         paid = bool()
         total = float(self.lineSaleTotal.text())
-        transaction = copy.deepcopy(self.transactions[0])
+        transaction = self.soldProducts[0].paymentStatus
         transaction.amountToBePayed = total
         
         if self.pushPaidFull.isChecked(): transaction.amountPayed = transaction.amountToBePayed ; transaction.amountToBePayed = 0.00
@@ -298,12 +302,15 @@ class POSReviewWindow(QtGui.QDialog):
         else: recieved = False
         
         for item in self.soldProducts:
+            transaction.valuedEntity.append(item)
             container = item.container
             container.numberOfUnits -= item.unitsSold
             container.weight -= container.unitSize*item.unitsSold
+            container.history.append([str(datetime.datetime.now()),'-',item.unitsSold,' units sold to '+str(transaction.sendingEntity.name)])
             if container.numberOfUnits <= 0:
                 cl.inv.listAllContainers.pop(cl.inv.listAllContainers.index(container))
-        
+        cl.inv.listAllTransactions.append(transaction)
+        cl.inv.listAllTransactionsArchive.append(transaction)
         final = cl.finalizedSale(self.soldProducts[:],transaction,str(datetime.datetime.now()),recieved,total)
         cl.inv.listAllReciepts.append(final)
         cl.inv.listAllRecieptsArchive.append(final)
@@ -384,7 +391,7 @@ def logClose():
     app.quit()
     #lg.write('Terminating Session...')
     #lg.close()
-    subprocess.call('python SDOM.pyw', shell=True)
+    #subprocess.call('python SDOM.pyw', shell=True)
     
 import atexit
 atexit.register(logClose)

@@ -40,7 +40,7 @@ class FinishWindow(QtGui.QMainWindow):
         self.actionQuit.triggered.connect(self.quitnow)
         self.actionHarvest_2.triggered.connect(self.harvestCrystals)
         
-        self.actionCustomer_Relations.triggered.connect(lambda: self.pageOpen('customerRelations.py'))
+        '''self.actionCustomer_Relations.triggered.connect(lambda: self.pageOpen('customerRelations.py'))
         self.actionIntake.triggered.connect(lambda: self.pageOpen('intake.py'))
         self.actionLab.triggered.connect(lambda: self.pageOpen('lab.py'))
         #self.actionFinishing.triggered.connect(lambda: self.pageOpen('finishing.py'))
@@ -48,7 +48,7 @@ class FinishWindow(QtGui.QMainWindow):
         self.actionProduct_Management.triggered.connect(lambda: self.pageOpen('productManagement.py'))
         self.actionPackaging.triggered.connect(lambda: self.pageOpen('packaging.py'))
         self.actionDistillate.triggered.connect(lambda: self.pageOpen('distillate.py'))
-        self.actionPOS.triggered.connect(lambda: self.pageOpen('pos.py'))
+        self.actionPOS.triggered.connect(lambda: self.pageOpen('pos.py'))'''
         
         self.listCrudeFin.itemDoubleClicked.connect(self.closeCrude)
         self.listCrumFin.itemDoubleClicked.connect(self.closeCrumGoo)
@@ -236,7 +236,6 @@ def logClose():
     app.quit()
     lg.write('Terminating Session...')
     lg.close()
-    subprocess.call('python SDOM.pyw', shell=True)
     
 import atexit
 atexit.register(logClose)

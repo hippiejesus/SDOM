@@ -21,7 +21,8 @@ options = {'Containers':cl.inv.listAllContainers,
            'Trim':cl.inv.listAllTotes,
            'Runs':cl.inv.listAllRuns,
            'Shipments':cl.inv.listAllShipments,
-           'Locations':cl.inv.listAllLocations}
+           'Locations':cl.inv.listAllLocations,
+           'Transactions':cl.inv.listAllTransactions}
 
 class SearchWindow(QtGui.QDialog):
     def __init__(self):
@@ -176,6 +177,10 @@ class SearchWindow(QtGui.QDialog):
                 current = self.listProduct.currentItem()
                 text = str(current.text())
                 split = text.split(' : ')
+                if options[self.currentCategory] == cl.inv.listAllTransactions:
+                    self.currentItem = options[self.currentCategory][self.listProduct.currentRow()]
+                    self.setContents()
+                    return
                 for item in options[self.currentCategory]:
                     try:
                         if item.ID == split[0]:
@@ -202,8 +207,11 @@ class SearchWindow(QtGui.QDialog):
                 self.listProduct.addItem(str(item))
         elif self.currentItem != None:
             self.label.show()
-            self.label.setText(str(self.currentItem.ID)+': '+str(self.currentItem.kind))
             item = self.currentItem
+            if isinstance(item,cl.transaction):
+                self.label.setText(str(item.time_stamp))
+            else: self.label.setText(str(self.currentItem.ID)+': '+str(self.currentItem.kind))
+            
             if isinstance(item,cl.trimTote):
                 self.listProduct.addItem('ID : '+str(item.ID))
                 self.listProduct.addItem('shipment : '+str(item.shipment.ID))
@@ -247,6 +255,22 @@ class SearchWindow(QtGui.QDialog):
                 self.listProduct.addItem('weight : '+str(item.weight))
                 self.listProduct.addItem('container : '+str(item.container.ID))
                 self.listProduct.addItem('test results : '+str(item.testResults))
+            elif isinstance(item,cl.transaction):
+                try:
+                    self.listProduct.addItem('Recipient of Payment : '+str(item.recievingEntity.name))
+                except:
+                    self.listProduct.addItem('Recipient of Payment : '+str(item.recievingEntity))
+                try:
+                    self.listProduct.addItem('Payee : '+str(item.sendingEntity.name))
+                except:
+                    self.listProduct.addItem('Payee : '+str(item.sendingEntity))
+                self.listProduct.addItem('Amount Paid : '+str(item.amountPayed))
+                self.listProduct.addItem('Amount Owed : '+str(item.amountToBePayed))
+                self.listProduct.addItem('Total Amount : '+str(item.amountPayed+item.amountToBePayed))
+                items = list()
+                for i in item.valuedEntity:
+                    items.append(i.ID)
+                self.listProduct.addItem('Items Sold : '+str(items))
             elif isinstance(item,cl.run):
                 self.listProduct.addItem('ID : '+str(item.ID))
                 trimIn = []
@@ -320,12 +344,16 @@ class SearchWindow(QtGui.QDialog):
                     self.listProduct.addItem(str(item.ID)+' : '+str(item.source)+' : '+str(item.dateIn))
                 elif isinstance(item,cl.location):
                     self.listProduct.addItem(str(item.ID)+' : '+str(item.description))
+                elif isinstance(item,cl.transaction):
+                    try:
+                        self.listProduct.addItem(str(item.recievingEntity)+' <-- '+str(item.sendingEntity.name)+' : '+str(item.amountPayed)+'/'+str(item.amountPayed+item.amountToBePayed))
+                    except:
+                        self.listProduct.addItem(str(item.recievingEntity.name)+' <-- '+str(item.sendingEntity)+' : '+str(item.amountPayed)+'/'+str(item.amountPayed+item.amountToBePayed))
 
 def logClose():
     app.quit()
     #lg.write('Terminating Session...')
     #lg.close()
-    subprocess.call('python SDOM.pyw', shell=True)
     
 import atexit
 atexit.register(logClose)

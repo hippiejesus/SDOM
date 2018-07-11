@@ -39,7 +39,7 @@ class packagingMainWindow(QtGui.QMainWindow):
         
         self.updateLists()
         
-        self.actionCustomer_Relations.triggered.connect(lambda: self.pageOpen('customerRelations.py'))
+        '''self.actionCustomer_Relations.triggered.connect(lambda: self.pageOpen('customerRelations.py'))
         self.actionIntake.triggered.connect(lambda: self.pageOpen('intake.py'))
         self.actionLab.triggered.connect(lambda: self.pageOpen('lab.py'))
         self.actionFinishing.triggered.connect(lambda: self.pageOpen('finishing.py'))
@@ -47,7 +47,7 @@ class packagingMainWindow(QtGui.QMainWindow):
         self.actionProduct_Management.triggered.connect(lambda: self.pageOpen('productManagement.py'))
         #self.actionPackaging.triggered.connect(lambda: self.pageOpen('packaging.py'))
         self.actionDistillate.triggered.connect(lambda: self.pageOpen('distillate.py'))
-        self.actionPOS.triggered.connect(lambda: self.pageOpen('pos.py'))
+        self.actionPOS.triggered.connect(lambda: self.pageOpen('pos.py'))'''
         
         self.center()
         
@@ -64,7 +64,7 @@ class packagingMainWindow(QtGui.QMainWindow):
         subprocess.call('python '+page, shell=True)
    
     def quitApp(self):
-        QtCore.QCoreApplication.instance().quit()
+        app.quit()
         self.hide()
         
     def uncheckLists(self,avoidList):
@@ -165,7 +165,7 @@ class packagingMakeWindow(QtGui.QDialog):
             newCont = cl.container()
             cont.kind = str(cont.kind)[3:]
             cont.weight = float(self.lineCurrentWeight.text())
-            newCont.ID = cont.ID
+            newCont.ID = str(self.lineContainerName.text())
             if typeChoice == 'RSO': newCont.kind = '(P)RSO'
             elif typeChoice == 'Distillate': 
                 newCont.kind = '(P)Distillate'
@@ -382,7 +382,7 @@ def logClose():
     app.quit()
     lg.write('Terminating Session...')
     lg.close()
-    subprocess.call('python SDOM.pyw', shell=True)
+
     
 import atexit
 atexit.register(logClose)

@@ -84,7 +84,7 @@ class ProductWindow(QtGui.QMainWindow):
         
         self.update()
         
-        self.actionCustomer_Relations.triggered.connect(lambda: self.pageOpen('customerRelations.py'))
+        '''self.actionCustomer_Relations.triggered.connect(lambda: self.pageOpen('customerRelations.py'))
         self.actionIntake.triggered.connect(lambda: self.pageOpen('intake.py'))
         self.actionLab.triggered.connect(lambda: self.pageOpen('lab.py'))
         self.actionFinishing.triggered.connect(lambda: self.pageOpen('finishing.py'))
@@ -92,7 +92,7 @@ class ProductWindow(QtGui.QMainWindow):
         #self.actionProduct_Management.triggered.connect(lambda: self.pageOpen('productManagement.py'))
         self.actionPackaging_2.triggered.connect(lambda: self.pageOpen('packaging.py'))
         self.actionDistillate.triggered.connect(lambda: self.pageOpen('distillate.py'))
-        self.actionPOS_2.triggered.connect(lambda: self.pageOpen('pos.py'))
+        self.actionPOS_2.triggered.connect(lambda: self.pageOpen('pos.py'))'''
         
         self.center()
         
@@ -137,7 +137,7 @@ class ProductWindow(QtGui.QMainWindow):
         self.update()
         
     def quitApp(self):
-        QtCore.QCoreApplication.instance().quit()
+        app.quit()
         self.hide()
         
     def uncheckLists(self,avoidList):
@@ -269,7 +269,6 @@ def logClose():
     app.quit()
     lg.write('Terminating Session...')
     lg.close()
-    subprocess.call('python SDOM.pyw', shell=True)
     
 import atexit
 atexit.register(logClose)
