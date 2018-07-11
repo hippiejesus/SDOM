@@ -23,14 +23,14 @@ class mainWindow(QtGui.QMainWindow):
         self.actionQuit.triggered.connect(self.quitProgram)
         
         #self.actionCustomer_Relations.triggered.connect(lambda: self.pageOpen('customerRelations.py')
-        self.actionIntake.triggered.connect(lambda: self.pageOpen('intake.py'))
+        '''self.actionIntake.triggered.connect(lambda: self.pageOpen('intake.py'))
         self.actionLab.triggered.connect(lambda: self.pageOpen('lab.py'))
         self.actionFinishing.triggered.connect(lambda: self.pageOpen('finishing.py'))
         self.actionYield.triggered.connect(lambda: self.pageOpen('yieldW.py'))
         self.actionProduct_Management.triggered.connect(lambda: self.pageOpen('productManagement.py'))
         self.actionPackaging.triggered.connect(lambda: self.pageOpen('packaging.py'))
         self.actionDistillate.triggered.connect(lambda: self.pageOpen('distillate.py'))
-        self.actionPOS.triggered.connect(lambda: self.pageOpen('pos.py'))
+        self.actionPOS.triggered.connect(lambda: self.pageOpen('pos.py'))'''
         
         self.listWidget.itemDoubleClicked.connect(self.viewSelected)
         
@@ -258,7 +258,6 @@ def logClose():
     app.quit()
     cLog.write('Terminating Session...')
     cLog.close()
-    subprocess.call('python SDOM.pyw', shell=True)
     
 import atexit
 atexit.register(logClose)

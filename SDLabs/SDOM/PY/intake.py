@@ -23,16 +23,6 @@ class IntakeWindow(QtGui.QMainWindow):
         self.newBag.triggered.connect(self.intakeBag)
         self.quit.triggered.connect(self.exit)
         
-        self.actionCustomer_Relations.triggered.connect(lambda: self.pageOpen('customerRelations.py'))
-        #self.actionIntake.triggered.connect(lambda: self.pageOpen('intake.py'))
-        self.actionLab.triggered.connect(lambda: self.pageOpen('lab.py'))
-        self.actionFinishing.triggered.connect(lambda: self.pageOpen('finishing.py'))
-        self.actionYield.triggered.connect(lambda: self.pageOpen('yieldW.py'))
-        self.actionProduct_Management.triggered.connect(lambda: self.pageOpen('productManagement.py'))
-        self.actionPackaging.triggered.connect(lambda: self.pageOpen('packaging.py'))
-        self.actionDistillate.triggered.connect(lambda: self.pageOpen('distillate.py'))
-        self.actionPOS.triggered.connect(lambda: self.pageOpen('pos.py'))
-        
         self.listShipments.itemDoubleClicked.connect(self.intakePost)
         
         self.actionPost_Test.triggered.connect(self.intakePost)
@@ -134,7 +124,16 @@ class IntakeContainerWindow(QtGui.QDialog):
         self.buttonBox.accepted.connect(self.okClick)
         self.buttonBox.rejected.connect(self.cancelClick)
         
+        self.pushPound.clicked.connect(self.byThePound)
+        self.pushPercent.clicked.connect(self.byThePercent)
+        
         self.linePoundPrice.textChanged.connect(self.calculateTotalPrice)
+        
+    def byThePound(self):
+        pass
+        
+    def byThePercent(self):
+        pass
         
     def calculateTotalPrice(self):
         pricePerPound = float(self.linePoundPrice.text())
@@ -219,7 +218,6 @@ class IntakeContainerWindow(QtGui.QDialog):
         except:
             lg.write('IntakeContainerWindow - ERROR: setLoad(self,owner,flavor,numBags,storeLoc)',deepData=str(sys.exc_info()))
 
-###ERROR: items being created before ok is clicked. Cancel does nothing to reverse this. FIX
 class IntakePostWindow (QtGui.QDialog):
     def __init__(self):
         super(IntakePostWindow, self).__init__()
@@ -310,7 +308,6 @@ def logClose():
     app.quit()
     lg.write('Terminating Session...')
     lg.close()
-    subprocess.call('python SDOM.pyw', shell=True)
     
 import atexit
 atexit.register(logClose)

@@ -89,8 +89,12 @@ class MainWindow(QtGui.QMainWindow):
             self.fadeInPix()
             return
         self.label.hide()
-        app.quit()
-        subprocess.call('python '+self.toSwitch, shell=True)
+        completed = subprocess.call('python '+self.toSwitch, shell=True)
+        print('returncode:', completed)
+        self.toSwitch = None
+        if completed == 0:
+            self.label.show()
+            self.fadeInPix()
     
 def logClose():
     main.toSwitch = 'quit'

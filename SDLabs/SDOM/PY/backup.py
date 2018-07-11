@@ -8,7 +8,11 @@ def writeLog():
     lg.close()
     
 def backup():
-    shutil.copy2('../.zzz/data.zzz','../.BackUps/'+str(datetime.datetime.now())+'.bak')
+    name = str(datetime.datetime.now())+'.bak'
+    path = '../.BackUps/'+name
+    shutil.copy2('../.zzz/data.zzz',path)
+    print('Backup complete!')
+    return path
 
 
 if __name__ == '__main__':

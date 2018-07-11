@@ -38,7 +38,7 @@ class YieldWindow(QtGui.QMainWindow):
         
         self.update()
         
-        self.actionCustomer_Relations.triggered.connect(lambda: self.pageOpen('customerRelations.py'))
+        '''self.actionCustomer_Relations.triggered.connect(lambda: self.pageOpen('customerRelations.py'))
         self.actionIntake.triggered.connect(lambda: self.pageOpen('intake.py'))
         self.actionLab.triggered.connect(lambda: self.pageOpen('lab.py'))
         self.actionFinishing.triggered.connect(lambda: self.pageOpen('finishing.py'))
@@ -46,7 +46,7 @@ class YieldWindow(QtGui.QMainWindow):
         self.actionProduct_Management.triggered.connect(lambda: self.pageOpen('productManagement.py'))
         self.actionPackaging.triggered.connect(lambda: self.pageOpen('packaging.py'))
         self.actionDistillate_2.triggered.connect(lambda: self.pageOpen('distillate.py'))
-        self.actionPOS.triggered.connect(lambda: self.pageOpen('pos.py'))
+        self.actionPOS.triggered.connect(lambda: self.pageOpen('pos.py'))'''
         
         self.center()
         
@@ -152,7 +152,10 @@ class YieldPOP(QtGui.QDialog):
             finished.weight = float(self.totalYield.text())
             finished.kind = self.kind
             finished.location = self.target_product.location
-            self.target_product.location.items.pop(self.target_product.location.items.index(self.target_product))
+            try:
+                self.target_product.location.items.pop(self.target_product.location.items.index(self.target_product))
+            except:
+                pass
             finished.owner = self.target_product.owner###
             finished.unfinishedProductIncluded.append(self.target_product)
             cl.inv.listAllUnfinishedProduct.pop(cl.inv.listAllUnfinishedProduct.index(self.target_product))
@@ -229,8 +232,7 @@ def logClose():
     app.quit()
     lg.write('Terminating Session...')
     lg.close()
-    subprocess.call('python SDOM.pyw', shell=True)
-    
+        
 import atexit
 atexit.register(logClose)
 
